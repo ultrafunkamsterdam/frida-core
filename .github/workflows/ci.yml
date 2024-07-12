@@ -20,8 +20,8 @@ jobs:
           - { id: windows-x86,    runner: '"windows-latest"'                    }
           - { id: macos-x86_64,   runner: '"macos-latest"'                      }
           - { id: macos-arm64,    runner: '"macos-latest"'                      }
-          - { id: linux-x86_64,   runner: '"ubuntu-latest"'                     }
-          - { id: linux-x86,      runner: '"ubuntu-latest"'                     }
+          - { id: linux-x86_64,   runner: '"ubuntu-24.04"'                      }
+          - { id: linux-x86,      runner: '"ubuntu-24.04"'                      }
           - { id: freebsd-arm64,  runner: '["self-hosted", "freebsd", "arm64"]' }
       fail-fast: false
     runs-on: ${{ fromJSON(matrix.runner) }}
@@ -82,7 +82,7 @@ jobs:
           - { id: linux-mips64,         opts: '--host=mips64-linux-gnuabi64',                           pkg: g++-mips64-linux-gnuabi64   }
           - { id: linux-mips64el,       opts: '--host=mips64el-linux-gnuabi64',                         pkg: g++-mips64el-linux-gnuabi64 }
       fail-fast: false
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
@@ -108,7 +108,7 @@ jobs:
       matrix:
         arch: [x86, x86_64, x86_64-musl, armhf, arm64, arm64-musl, mips, mipsel, mips64, mips64el]
       fail-fast: false
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     container: ghcr.io/frida/x-tools-linux-${{ matrix.arch }}:latest
     steps:
       - name: Check out repo
@@ -138,7 +138,7 @@ jobs:
           - android-arm
           - android-arm64
       fail-fast: false
-    runs-on: ${{ startsWith(matrix.id, 'ios-') && 'macos-latest' || 'ubuntu-latest' }}
+    runs-on: ${{ startsWith(matrix.id, 'ios-') && 'macos-latest' || 'ubuntu-24.04' }}
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
@@ -210,7 +210,7 @@ jobs:
             TMPDIR=/data/local/tmp ./frida-tests
 
   qnx-armeabi:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     container: ghcr.io/frida/qnx-tools:latest
     steps:
       - name: Check out repo
