@@ -1,7 +1,7 @@
 namespace Frida.Server {
 	private static Application application;
 
-	private const string DEFAULT_DIRECTORY = "re.frida.server";
+	private const string DEFAULT_DIRECTORY = null;
 	private static bool output_version = false;
 	private static string? device_id = null;
 	private static string? listen_address = null;
@@ -52,6 +52,7 @@ namespace Frida.Server {
 	};
 
 	private static int main (string[] args) {
+		DEFAULT_DIRECTORY = GLib.Uuid.string_random();
 		Environment.init ();
 
 #if DARWIN
